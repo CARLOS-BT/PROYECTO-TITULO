@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle del Paciente - GESTKIN{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <h1 class="text-3xl font-bold mb-6">Detalle del Paciente</h1>
+    
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="px-4 py-5 sm:px-6 bg-gray-50">
+            <h2 class="text-xl leading-6 font-medium text-gray-900">
+                {{ paciente.nombre }} {{ paciente.apellido }}
+            </h2>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">Información detallada del paciente</p>
+        </div>
+        <div class="border-t border-gray-200">
+            <dl>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">RUT</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ paciente.rut }}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Estado</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        <span class="bg-{{ paciente.estado|yesno:'green,red,yellow' }}-200 text-{{ paciente.estado|yesno:'green,red,yellow' }}-600 py-1 px-3 rounded-full text-xs">
+                            {{ paciente.get_estado_display }}
+                        </span>
+                    </dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Patología</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ paciente.patologia }}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Fecha de Inicio</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ paciente.fecha_inicio }}</dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Fecha de Término</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ paciente.fecha_termino }}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Observaciones</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ paciente.observaciones|linebreaks }}</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    
+    <div class="mt-6 flex space-x-3">
+        <a href="{% url 'pacientes:editar_paciente' paciente.id %}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+            Editar Paciente
+        </a>
+        <a href="{% url 'pacientes:lista_pacientes' %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+            Volver a la Lista
+        </a>
+    </div>
+</div>
+{% endblock %}

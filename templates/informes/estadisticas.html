@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Estadísticas - GESTKIN{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">Estadísticas</h2>
+<form method="get" class="mb-4">
+    {{ formulario.as_p }}
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Filtrar
+    </button>
+</form>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-lg font-semibold mb-2">Total de Pacientes</h3>
+        <p class="text-3xl font-bold">{{ total_pacientes }}</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-lg font-semibold mb-2">Pacientes Completados</h3>
+        <p class="text-3xl font-bold text-green-600">{{ pacientes_completados }}</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-lg font-semibold mb-2">Pacientes No Completados</h3>
+        <p class="text-3xl font-bold text-red-600">{{ pacientes_no_completados }}</p>
+    </div>
+    <div class="bg-white p-4 rounded shadow">
+        <h3 class="text-lg font-semibold mb-2">Pacientes En Proceso</h3>
+        <p class="text-3xl font-bold text-yellow-600">{{ pacientes_en_proceso }}</p>
+    </div>
+</div>
+{% endblock %}
