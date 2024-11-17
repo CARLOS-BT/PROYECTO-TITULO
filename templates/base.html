@@ -9,7 +9,7 @@
 <body class="bg-gray-100">
     <nav class="bg-blue-600 p-4 text-white">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="{% url 'pacientes:lista_pacientes' %}" class="text-2xl font-bold">SISTEMA DE REHABILITACION GESTKIN</a>
+            <a href="{% url 'pacientes:lista_pacientes' %}" class="text-2xl font-bold">SISTEMA DE PACIENTES GESTKIN</a>
             {% if user.is_authenticated %}
                 <div>
                     <span class="mr-4">{{ user.get_full_name }}</span>
