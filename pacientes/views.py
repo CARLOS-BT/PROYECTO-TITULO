@@ -8,6 +8,7 @@ def lista_pacientes(request):
     pacientes = Paciente.objects.all()
     return render(request, 'pacientes/lista_pacientes.html', {'pacientes': pacientes})
 
+
 @login_required
 def detalle_paciente(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)
@@ -19,13 +20,23 @@ def crear_paciente(request):
     if request.method == 'POST':
         formulario = FormularioPaciente(request.POST)
         if formulario.is_valid():
-            paciente = formulario.save(commit=False)
-            paciente.kinesiologo = request.user
-            paciente.save()
-            return redirect('pacientes:detalle_paciente', pk=paciente.pk)
+            formulario.save()
+            return redirect('pacientes:lista_pacientes')
     else:
         formulario = FormularioPaciente()
-    return render(request, 'pacientes/formulario_paciente.html', {'formulario': formulario})
+    return render(request, 'pacientes/crear_paciente.html', {'formulario': formulario})
+
+@login_required
+def editar_paciente(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    if request.method == 'POST':
+        form = FormularioPaciente(request.POST, instance=paciente)
+        if form.is_valid():
+            form.save()
+            return redirect('pacientes:detalle_paciente', pk=paciente.pk)
+    else:
+        form = FormularioPaciente(instance=paciente)
+    return render(request, 'pacientes/editar_paciente.html', {'form': form, 'paciente': paciente})
 
 @login_required
 def actualizar_paciente(request, pk):

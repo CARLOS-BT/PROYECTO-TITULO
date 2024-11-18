@@ -126,17 +126,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 AUTH_USER_MODEL = 'cuentas.Usuario'
-
 LOGIN_URL = 'cuentas:login'
-LOGIN_REDIRECT_URL = 'pacientes:lista_pacientes'
+LOGIN_REDIRECT_URL = '/admin/'
 LOGOUT_REDIRECT_URL = 'cuentas:login'
 
 AUTHENTICATION_BACKENDS = [
@@ -163,6 +164,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Configuración de sesiones
 SESSION_COOKIE_AGE = 3600  # 1 hora
 SESSION_SAVE_EVERY_REQUEST = True
+# Configuración de zona horaria
+TIME_ZONE = 'America/Santiago'
 
 # Configuración de seguridad
 SECURE_BROWSER_XSS_FILTER = True

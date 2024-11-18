@@ -11,5 +11,4 @@ class UsuarioAdmin(UserAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
         (None, {'fields': ('RUT', 'rol')}),
     )
-
 admin.site.register(Usuario, UsuarioAdmin)

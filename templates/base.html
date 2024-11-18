@@ -4,22 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}GESTKIN{% endblock %}</title>
+    <!-- Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Fuente personalizada de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Bloque adicional para CSS personalizado -->
+    {% block extra_css %}{% endblock %}
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .alert {
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
-    <nav class="bg-blue-600 p-4 text-white">
+    <!-- Barra de navegación -->
+    <nav class="bg-blue-600 p-4 text-white shadow-md">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="{% url 'pacientes:lista_pacientes' %}" class="text-2xl font-bold">SISTEMA DE PACIENTES GESTKIN</a>
+            <!-- Logo o enlace de inicio -->
+            <a href="{% url 'pacientes:lista_pacientes' %}" class="text-2xl font-extrabold tracking-wide hover:opacity-90">
+                INICIO            </a>
+            <!-- Usuario autenticado -->
             {% if user.is_authenticated %}
-                <div>
-                    <span class="mr-4">{{ user.get_full_name }}</span>
-                    <a href="{% url 'cuentas:logout' %}" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Cerrar Sesión</a>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm font-medium">{{ user.get_full_name }}</span>
+                    <a href="{% url 'cuentas:logout' %}" class="bg-red-500 hover:bg-red-600 text-sm px-4 py-2 rounded-md transition-all">
+                        Cerrar Sesión
+                    </a>
                 </div>
             {% endif %}
         </div>
     </nav>
-    <main class="container mx-auto mt-8 p-4">
+
+    <!-- Contenido principal -->
+    <main class="container mx-auto mt-8 p-6 bg-white shadow rounded-md">
+        <!-- Mensajes de alerta -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-4 p-4 rounded-md border-l-4 {{ message.tags|default:'bg-gray-200 border-gray-400' }}">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <!-- Bloque de contenido dinámico -->
         {% block content %}{% endblock %}
     </main>
+
+    <!-- Scripts adicionales -->
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
